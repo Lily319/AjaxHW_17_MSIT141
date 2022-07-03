@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "HW1";
+}
+@section Styles{
+    <style>
+        table, tr, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 2vw;
+        }
+    </style>
+}
+<div class="text-center">
+    <h1>HW1</h1>
+    <h4>將JSON資料轉換至表格</h4>
+</div>
+<br />
+<table id="tbEmp" align="center">
+    <tr>
+        <th>員工</th>
+        <th>年資</th>
+        <th>薪資</th>
+    </tr>
+</table>
+
+    @section Scripts{
+        <script>
+            var emp = {
+                "employees": [
+                    { "name": "Tom", "workYears": 3, "salary": 35000 },
+                    { "name": "Jack", "workYears": 5, "salary": 40000 },
+                    { "name": "Mary", "workYears": 7, "salary": 45000 }
+                ]
+            };
+            for (let e of emp.employees) {
+                $("#tbEmp").append(`<tr><td>${e.name}</td><td>${e.workYears}</td><td>${e.salary}</td></tr>`)
+            }
+        </script>
+    }
