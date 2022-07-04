@@ -26,6 +26,10 @@ namespace AjaxHW_17_MSIT141.Controllers
         {
             return View();
         }
+        public IActionResult HW2_Register()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
