@@ -2,7 +2,13 @@
 @{
     ViewData["Title"] = "HW2_Register";
 }
-
+@section Styles{ 
+<style>
+    #nameHelp{
+        color:red;
+    }
+</style>
+}
 
 
 <div class="row">
@@ -12,7 +18,7 @@
             <div class="form-group">
                 <label for="InputName">姓名</label>
                 <input type="text" class="form-control" id="InputName" name="name">
-                <small id="nameHelp" class="form-text text-muted"></small>
+                <small id="nameHelp" class="form-text"></small>
             </div>
             <div class="form-group">
                 <label for="InputEmail">電子郵件</label>
@@ -22,32 +28,65 @@
                 <label for="InputEmail">年紀</label>
                 <input type="number" class="form-control" id="InputAge" name="age">
             </div>
+            <div class="form-group">
+                <input type="file" class="form-control" id="InputFile" name="file">
+            </div>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
+        <div class="alert alert-info" id="div1"></div>
     </div>
 </div>
 
 @section Scripts{
     <script>
-        const btnSubmit = document.querySelector('.btn');
+        const inputName = document.querySelector('#InputName');
+        const btnSubmit = document.querySelector(".btn");
         const smlName = document.querySelector('#nameHelp');
+        const div1 = document.querySelector("#div1");
 
-        btnSubmit.addEventListener('click', (evt) => {
+        inputName.addEventListener('blur', (evt) => {
             evt.preventDefault();
-            const formData = new FormData(document.userInfo);
 
             const xhr = new XMLHttpRequest();
 
             xhr.addEventListener('load', () => {
 
                 const data = xhr.responseText;
+                smlName.innerHTML = data;
+            })
+            xhr.open('POST', '@Url.Content("~/api/CheckName")');
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');//???
+            xhr.send(`name=${inputName.value}`);
 
-                smlName.innerHTML = `<h3>${data}</h3>`;
+        });
+
+        btnSubmit.addEventListener("click", (evt) => {
+            evt.preventDefault();
+            const formData = new FormData(document.userInfo);
+
+            //透過fetch()上傳圖檔
+            fetch("@Url.Content("~/api/register")", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => div1.innerHTML = data);
+
+
+            @*透過XMLHttpRequest上傳圖檔
+            const xhr = new XMLHttpRequest();
+            
+            xhr.addEventListener('load', () => {
+
+                const data = xhr.responseText;
+
+                div1.innerHTML = `<h3>${data}</h3>`;
             })
 
-            xhr.open('POST', '@Url.Content("~/api/index")');
-            xhr.send(formData);
-        });
+            xhr.open('POST', '@Url.Content("~/api/Register")');
+            xhr.send(formData);*@
+        })
+
     </script>
 }
 
