@@ -64,16 +64,16 @@
             evt.preventDefault();
             const formData = new FormData(document.userInfo);
 
-            //透過fetch()上傳圖檔
+            @*//透過fetch()上傳圖檔
             fetch("@Url.Content("~/api/register")", {
                 method: "POST",
                 body: formData
             })
                 .then(response => response.text())
-                .then(data => div1.innerHTML = data);
+                .then(data => div1.innerHTML = data);*@
 
 
-            @*透過XMLHttpRequest上傳圖檔
+            //透過XMLHttpRequest上傳圖檔
             const xhr = new XMLHttpRequest();
             
             xhr.addEventListener('load', () => {
@@ -84,7 +84,7 @@
             })
 
             xhr.open('POST', '@Url.Content("~/api/Register")');
-            xhr.send(formData);*@
+            xhr.send(formData);
         })
 
     </script>
