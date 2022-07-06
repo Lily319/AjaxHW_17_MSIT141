@@ -34,6 +34,10 @@ namespace AjaxHW_17_MSIT141.Controllers
         {
             return View();
         }
+        public IActionResult HW3_Address_async()
+        {
+            return View();
+        }
         public IActionResult Promise()
         {
             return View();
